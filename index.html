@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arqon Tortish: Geografiya</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=yes">
+</head>
+
+<body>
+
+    <audio id="background-music" src="audio.mp3" loop></audio>
+    
+    <h1>ARQON TORTISH : GEOGRAFIYA</h1>
+    <p>
+        Toʻgʻri javob — jamoa arqonni oʻz tomoniga tortadi. <br>
+
+Xato javob — arqon raqib tomonga siljib, darhol yangi savol chiqadi.
+    </p>
+    
+    <div id="startScreen">
+        <div id="startModal">
+            <h2>JAMOALARNI TAYYORLANG</h2>
+            <div class="teamSetup">
+                <div class="teamBox">
+                    <h3 style="color:#3f51b5;">1-Jamoa (KOʻK)</h3>
+                    <input type="text" id="nameLeft" placeholder="Nomini kiriting">
+                </div>
+                <div class="teamBox">
+                    <h3 style="color:#e53935;">2-Jamoa (QIZIL)</h3>
+                    <input type="text" id="nameRight" placeholder="Nomini kiriting">
+                </div>
+            </div>
+            <button id="startBtn">OʻYINNI BOSHLASH</button>
+        </div>
+    </div>
+    
+    <div id="countdown">3</div>
+
+    <div class="main-game-container">
+        <div class="panel" id="leftPanel">
+            <div class="header" id="headerLeft">1-Jamoa</div>
+            <div class="problem-box" id="leftProblem">Savol ?</div>
+            <div class="quiz-keypad" id="leftQuizKeypad">
+                </div>
+        </div>
+
+        <div id="arena">
+            <div id="winLine"></div> 
+            
+            <div id="imageContainer">
+                <img style="width:100%;" src="personss.gif" id="tugOfWarImage" alt="Arqon tortish">
+            </div>
+
+            <div id="arenaWinnerDisplay" style="display:none;">
+                <div id="winGifContainer"> 
+                   <h2 id="winnerNameArena" class="winner-text"></h2>
+                   <h3 class="winner-text-small">Gʻalabaga erishdi! Tabriklaymiz</h3>
+                   <button class="btn btn-go" style="margin-top: 20px;" onclick="location.reload()">QAYTA OʻYNASH</button>
+                    <img src="win_blue.gif" id="blueWinGif" class="win-gif" alt="Koʻk jamoa gʻalaba qozondi">
+                    <img src="win_red.gif" id="redWinGif" class="win-gif" alt="Qizil jamoa gʻalaba qozondi">
+                </div>
+            </div>
+        </div>
+
+        <div class="panel" id="rightPanel">
+            <div class="header" id="headerRight">2-Jamoa</div>
+            <div class="problem-box" id="rightProblem">Savol ?</div>
+            <div class="quiz-keypad" id="rightQuizKeypad">
+                </div>
+        </div>
+    </div>
+    <br>
+    
+    <h3><i class="fa fa-instagram" aria-hidden="true"></i> <a href="https://instagram.com/joni.kalbaev">Muallif - Janbolot Kalbaev</a></h3>
+    
+    <script src="script.js"></script>
+</body>
+</html>
