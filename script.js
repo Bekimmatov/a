@@ -1,4 +1,4 @@
-// --- Sozlamalar ---
+⁶// --- Sozlamalar ---
 let position = 0;
 const STEP = 50;
 const WIN_LIMIT = 300;
@@ -10,84 +10,165 @@ let gameActive = false;
 
 // 🇺🇿 Geografiya bo'yicha savollar va javoblar bazasi (Oʻzbek tilida)
 const quizDatabase = [
-    // --- Umumiy Geografiya (Davlatlar, Poytaxtlar) ---
+    // --- Matnli Savollar (Rasm ishtirokisiz) ---
     { 
-        question: "Qaysi davlat 'Quyosh chiqayotgan yurt' deb nomlanadi?", 
-        correct: "Yaponiya", 
-        options: ["Xitoy", "Koreya", "Yaponiya", "Tailand", "Hindiston", "Avstraliya"] 
+        question: "Qaysi qit'aning shimoliy qismini ekvator kesib o'tadi?", 
+        correct: "Janubiy Amerika", 
+        options: ["Shimoliy Amerika", "Janubiy Amerika", "Avstraliya", "Yevrosiyo"] 
     },
     { 
-        question: "Uzunligi boʻyicha dunyodagi eng katta daryo qaysi?", 
-        correct: "Nil", 
-        options: ["Amzonka", "Volga", "Missisipi", "Nil", "Yanszi", "Kongo"] 
+        question: "O'simliklar va hayvonlarning quruqlikda tarqalishi asosan nimaga bog'liq?", 
+        correct: "iqlimga", 
+        options: ["iqlimga", "atmosfera bosimiga", "yer osti suvlariga", "tog' jinslariga"] 
     },
     { 
-        question: "Dunyodagi eng baland choʻqqi qaysi?", 
-        correct: "Jomolungma (Everest)", 
-        options: ["K2", "Kilimanjaro", "Mak-Kinli", "Jomolungma (Everest)", "Elbrus", "Akonkagua"] 
+        question: "Portugaliyaning poytaxtini aniqlang?", 
+        correct: "Lissabon", 
+        options: ["Madrid", "Porto", "Oslo", "Lissabon"] 
     },
     { 
-        question: "Kanadaning poytaxti qaysi shahar?", 
-        correct: "Ottava", 
-        options: ["Toronto", "Vankuver", "Monreal", "Ottava", "Kalgari", "Kvebek"] 
+        question: "Qaysi davlat hududi ikki qit'ada joylashgan?", 
+        correct: "Turkiya", 
+        options: ["Meksika", "Malavi", "Turkiya", "Keniya"] 
     },
     { 
-        question: "Qaysi qit'a aholi soni bo'yicha eng kichik hisoblanadi (Antarktidani hisobga olmaganda)?", 
-        correct: "Avstraliya", 
-        options: ["Shimoliy Amerika", "Janubiy Amerika", "Avstraliya", "Yevropa", "Afrika", "Osiyo"] 
-    },
-    
-    // --- Tabiiy Geografiya (Okeanlar, Iqlim) ---
-    { 
-        question: "Dunyo okeanlarining eng chuqur joyi qayerda joylashgan?", 
-        correct: "Mariana botigʻi", 
-        options: ["Puerto-Riko botigʻi", "Yava botigʻi", "Mariana botigʻi", "Gʻarbiy Yevropa", "Berring boʻgʻozi", "Qizil dengiz"] 
+        question: "Qozog'iston maydoni bo'yicha jahonda nechanchi o'rinda turadi?", 
+        correct: "9", 
+        options: ["8", "9", "10", "11"] 
     },
     { 
-        question: "Yer yuzasining necha foizini suv egallaydi?", 
-        correct: "Taxminan 71%", 
-        options: ["Taxminan 50%", "Taxminan 65%", "Taxminan 71%", "Taxminan 80%", "Taxminan 90%", "Taxminan 55%"] 
+        question: "Namangan viloyatidagi Mingbuloq neft koni qaysi yilda topilgan?", 
+        correct: "1992", 
+        options: ["1991", "1992", "1993", "1994"] 
     },
     { 
-        question: "Quyosh nurlari tik tushadigan joylarga xos boʻlgan iqlim turi?", 
-        correct: "Ekvatorial iqlim", 
-        options: ["Moʻtadil iqlim", "Subtropik iqlim", "Ekvatorial iqlim", "Subarktik iqlim", "Tropik iqlim", "Kontinental iqlim"] 
+        question: "O'zbekistondagi qaysi qurilish materiallari zaxiralari 85 million kubometrdan oshadi?", 
+        correct: "bezakbob toshlar", 
+        options: ["marmar", "bezakbob toshlar", "qimmatbaho toshlar", "tabiiy gaz"] 
     },
     { 
-        question: "Yupiter sayyorasi qanday nom bilan mashhur?", 
-        correct: "Gaz giganti", 
-        options: ["Muz giganti", "Qizil sayyora", "Yer guruhidagi sayyora", "Gaz giganti", "Quyosh", "Kometalar oilasi"] 
-    },
-    
-    // --- Siyosiy Geografiya (Poytaxtlar, hududlar) ---
-    { 
-        question: "Afrikadagi eng katta davlat qaysi?", 
-        correct: "Jazoir", 
-        options: ["Sudan", "Nigeriya", "Misr", "Kongo", "Jazoir", "Liviya"] 
+        question: "Farg'ona viloyatidagi qaysi shahar turli qurilish materiallari ishlab chiqarish markazi hisoblanadi?", 
+        correct: "Quvasoy", 
+        options: ["Qo'qon", "Marg'ilon", "Rishton", "Quvasoy"] 
     },
     { 
-        question: "Yevropadagi 'Appenin yarimoroli'da joylashgan davlat?", 
-        correct: "Italiya", 
-        options: ["Ispaniya", "Gretsiya", "Turkiya", "Italiya", "Germaniya", "Portugaliya"] 
+        question: "Isfayram, Shoximardon, So'x, Isfara daryolari qaysi viloyat hududidan oqib o'tadi?", 
+        correct: "Farg'ona", 
+        options: ["Qashqadaryo", "Samarqand", "Jizzax", "Farg'ona"] 
     },
     { 
-        question: "Rossiya Federatsiyasi va AQShni ajratib turuvchi boʻgʻoz?", 
-        correct: "Berring boʻgʻozi", 
-        options: ["Gibraltar boʻgʻozi", "Sut boʻgʻozi", "Berring boʻgʻozi", "Panama kanali", "Suesh kanali", "Dardanell"] 
-    },
-
-    // --- Oʻzbekiston Geografiyasi ---
-    { 
-        question: "Oʻzbekiston Respublikasining maydoni necha kv.km?", 
-        correct: "448,900 kv.km", 
-        options: ["300,000 kv.km", "448,900 kv.km", "500,000 kv.km", "400,000 kv.km", "550,000 kv.km", "350,000 kv.km"] 
+        question: "Tomditog'ning eng baland nuqtasi necha metrga teng?", 
+        correct: "922 m", 
+        options: ["1054 m", "2230 m", "922 m", "995 m"] 
     },
     { 
-        question: "Oʻzbekistondagi eng baland choʻqqi qaysi?", 
-        correct: "Hazrati Sulton", 
-        options: ["Choʻlponota", "Qorjantov", "Hazrati Sulton", "Beldersoy", "Gʻazalkent", "Toshkent"] 
+        question: "1650-yilda Shimoliy Muz okeanini alohida okean sifatida kim ajratgan?", 
+        correct: "B. Varenius", 
+        options: ["B. Varenius", "J. Kuk", "A. Chirikov", "Jon Kabot"] 
+    },
+    { 
+        question: "Birinchi 'Hilton Hotels & Resorts' mehmonxonasi qachon va qayerda qurilgan?", 
+        correct: "1919-yilda Texasda (AQSh)", 
+        options: ["1919-yilda Texasda (AQSh)", "1919-yilda Kaliforniyada (AQSh)", "1929-yilda Floridada (AQSh)", "1919-yilda Parijda (Fransiya)"] 
+    },
+    { 
+        question: "Yuqoridagi ma'lumotlar qaysi iqtisodiy rayonga tegishli? (Tomditog', qorako'l, keskin kontinental iqlim)", 
+        correct: "Zarafshon", 
+        options: ["Janubiy", "Farg'ona", "Zarafshon", "Quyi Amudaryo"] 
+    },
+    { 
+        question: "Quyidagi daryolarning qaysi biri muzliklar va qor suvi bilan to'yinadi?", 
+        correct: "Zarafshon", 
+        options: ["Sirdaryo", "Chirchiq", "Zarafshon", "Ohangaron"] 
+    },
+    { 
+        question: "Materik yonbag'ri qaysi chuqurliklar oralig'ida joylashgan?", 
+        correct: "200-3000 m", 
+        options: ["0-200 m", "200-3000 m", "200-6000 m", "2000-3000 m"] 
+    },
+    { 
+        question: "'Energiya tizimi' atamasiga berilgan to'g'ri ta'rifini aniqlang.", 
+        correct: "Turli xildagi elektr stansiyalarining yuqori voltli elektr uzatish liniyalari bilan birlashtirib, bir markazdan boshqarib turilishi", 
+        options: ["Barcha turdagi energiyani ishlab chiqarishga mo'ljallangan, o'zaro bog'langan va birgalikda ishlovchi texnologik uskunalar, obyektlar hamda inshootlar majmuasi", "Mamlakat hududidagi barcha elektr uzatish liniyalari (EUL).", "Issiqlik energiyasini ishlab chiqarish, o'zgartirish, uzatish, taqsimlash va iste'mol qilish uchun o'zaro bog'langan obyektlar majmuasi.", "Turli xildagi elektr stansiyalarining yuqori voltli elektr uzatish liniyalari bilan birlashtirib, bir markazdan boshqarib turilishi"] 
+    },
+    { 
+        question: "Bulutlardan qaysi yog'in turlari hosil bo'ladi?", 
+        correct: "Qor, yomg'ir", 
+        options: ["Shudring, qor", "Qirov, yomg'ir", "Qor, yomg'ir", "Qor, yomg'ir, shudring, do'l"] 
+    },
+    { 
+        question: "O'zbekiston viloyatlarini hududi bo'yicha eng kattasidan boshlab ketma-ket tartibda joylashtiring.", 
+        correct: "Buxoro, Qashqadaryo, Toshkent, Farg'ona", 
+        options: ["Xorazm, Andijon, Sirdaryo, Namangan", "Farg'ona, Samarqand, Sirdaryo, Andijon", "Buxoro, Qashqadaryo, Toshkent, Farg'ona", "Navoiy, Buxoro, Sirdaryo, Toshkent"] 
+    },
+    { 
+        question: "2018-yilda O'zbekistonda import eksportdan necha dollarga ko'p bo'ldi?", 
+        correct: "5,3 mlrd", 
+        options: ["3,3 mlrd", "3,1 mlrd", "4,6 mlrd", "5,3 mlrd"] 
+    },
+    { 
+        question: "Quyidagi mamlakatlarni shimoldan janubga to'g'ri ketma-ketlikda joylashgan variantni tanlang.", 
+        correct: "Norvegiya, Daniya, Italiya", 
+        options: ["Norvegiya, Daniya, Italiya", "Shvetsiya, Ispaniya, Islandiya", "AQSh, Germaniya, Kanada", "Braziliya, Argentina, Mali"] 
+    },
+    { 
+        question: "Toshkent iqtisodiy rayoniga oid ma'lumotlar to'g'ri keltirilgan javobni toping.", 
+        correct: "Rayon 100 dan ortiq uzoq va yaqin xorij mamlakatlari bilan savdo aloqalarini olib boradi. Xorijga paxta, ipak, paxtachilik uchun zarur mashina va uskunalar, to'qimachilik mashinalari, kabel, ekskavatorlar, ko'tarma kranlar, elektr energiya, rangli metall konsentratlari, ip gazlamalar eksport qiladi.", 
+        options: ["Rayon 100 dan ortiq uzoq va yaqin xorij mamlakatlari bilan savdo aloqalarini olib boradi. Xorijga paxta, ipak, paxtachilik uchun zarur mashina va uskunalar, to'qimachilik mashinalari, kabel, ekskavatorlar, ko'tarma kranlar, elektr energiya, rangli metall konsentratlari, ip gazlamalar eksport qiladi.", "Rayon paxta tolasi va paxta yog'i, quritilgan mevalar, konservalar, paxtadan to'qilgan gazlamalar, mashinalar, neft, sement, shifer, farfor va keramika buyumlari hamda boshqalarni eksport qiladi.", "Iqtisodiy-geografik rayon sanoatini asosan oziq-ovqat va yengil sanoat tarmoqlari tashkil qiladi. Yengil sanoatda paxta tozalash zavodlarning ulushi katta.", "Ushbu rayon iqtisodiyotining asosini qishloq xo'jaligi tashkil etadi. O'zbekistondagi foydalanishga yaroqli yerlarning 6 foizi ushbu rayonga to'g'ri keladi. Hududning qariyb 90 foizi yaylovlardan iborat."] 
+    },
+    { 
+        question: "Navoiy viloyatida joylashgan aholi punktlarini aniqlang (1. Karmana. 2. Iskandar. 3. Langar. 4. Romitan. 5. Qiziltepa. 6. Jondor. 7. Vobkent. 8. Shalqar. 9. Koson. 10. Miraki.)", 
+        correct: "1, 3, 5, 8", 
+        options: ["1, 3, 5, 8", "3, 5, 8, 9", "2, 3, 4, 7, 8", "1, 3, 5, 6, 8, 9"] 
+    },
+    { 
+        question: "Quyidagi o'simlik va hayvonot dunyosi qaysi kengliklar uchun xos: 'Hududning bir qismida ignabargli, keng bargli, aralash o'rmonlar o'sadi, ularda ko'plab o'rmon hayvonlari va qushlar yashaydi. Qolgan qismida dasht o'simliklari hukmronlik qiladi. Bu yerda hayvonlar orasida kemiruvchilar va qushlar ustunlik qiladi?'", 
+        correct: "mo'tadil", 
+        options: ["qutbiy", "tropik", "mo'tadil", "ekvatorial"] 
+    },
+    { 
+        question: "2017-yilda nechta viloyatning O'zbekiston yalpi ichki mahsulotidagi ulushi 9% va undan ko'proqni tashkil qilgan?", 
+        correct: "2", 
+        options: ["2", "4", "6", "1"] 
+    },
+    { 
+        question: "2016-yilgi ma'lumotlarga ko'ra, dunyoda yiliga... mlrd. tonna neft qazib olinadi. Nuqtalar o'rniga mos keluvchi ma'lumotni aniqlang.", 
+        correct: "4,3", 
+        options: ["1,3", "2,3", "4,3", "5,3"] 
+    },
+    { 
+        question: "2017-yil ma'lumotiga ko'ra, O'zbekiston importida Turkiyaning ulushi necha foizni tashkil etgan?", 
+        correct: "5,2", 
+        options: ["21,0", "5,2", "9,5", "7,7"] 
+    },
+    { 
+        question: "'Sanoat rayoni' atamasiga berilgan to'g'ri ta'rifini aniqlang.", 
+        correct: "Sanoat markazlari, tugunlari va punktlari to'plangan hududlar", 
+        options: ["Bu - texnologik jarayon bilan o'zaro bog'langan, ba'zan esa turli ishlab chiqarish sohalariga mansub bo'lgan bir nechta sanoat korxonalarining bitta korxonaga birlashtirilishidir.", "Yirik korxonalarda ishlab chiqarishning konsentratsiyasi", "Sanoat markazlari, tugunlari va punktlari to'plangan hududlar", "Mamlakat va chet el kapitalini, istiqbolli texnologiya va boshqaruv tajribasini jalb etish maqsadida tuziladigan, aniq belgilangan ma'muriy chegaralari va alohida huquqiy tartiboti bo'lgan maxsus ajratilgan hududdir."] 
+    },
+    { 
+        question: "O'zbekistonda suvni ifloslovchi qaysi tarmoq ulushi 18% ni tashkil qiladi?", 
+        correct: "sanoat", 
+        options: ["sanoat", "qishloq xo'jaligi", "kommunal xizmatlar", "transport tarmoqlari"] 
+    },
+    { 
+        question: "'Fraxt' atamasiga to'g'ri ta'rif berilgan qatorni toping.", 
+        correct: "Suv transporti orqali yuk tashish uchun to'lov", 
+        options: ["Bu yukga egalik huquqini tasdiqlovchi hujjat", "Suv transportida yuk tashish uchun soliq", "Yo'lovchi tashish yoki kema, samolyot yoki transport vositasini ijaraga olish uchun to'lov", "Suv transporti orqali yuk tashish uchun to'lov"] 
+    },
+    { 
+        question: "Tonga botig'ining chuqurligi bilan Hind okeanining eng chuqur joyi o'rtasidagi farqni aniqlang.", 
+        correct: "3 153 m", 
+        options: ["4 153 m", "3 153 m", "2 153 m", "1 153 m"] 
+    },
+    { 
+        question: "Sariosiyo tumanidagi ... konida polimetall rudalarni, ya'ni rux, qo'rg'oshin, mis va kumushning katta zaxirasini qayta ishlash bo'yicha yirik loyiha amalga oshirildi. Nuqtalar o'rniga kon nomini yozing.", 
+        correct: "Xonjiza", 
+        options: ["Xonjiza", "Uchqizil", "Sho'rchi", "Boysun"] 
     }
 ];
+
+console.log(quizDatabase);
 
 // 🔊 Musiqa elementini aniqlash
 const backgroundMusic = document.getElementById("background-music");
@@ -369,4 +450,5 @@ function triggerConfetti(container) {
             c.remove();
         }, duration * 1000);
     }
+
 }
