@@ -6,8 +6,11 @@ body {
     font-family: 'Roboto', sans-serif;
     background-image: url("bg.png");
     text-align: center;
-    height: 100vh;
-    overflow: hidden; 
+    /* Mobilga moslashish uchun o'zgartirishlar */
+    min-height: 100vh;
+    padding: 10px 0;
+    overflow-y: auto; /* Agar sig'masa, vertikal aylantirishga ruxsat berish */
+    overflow-x: hidden; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,9 +25,9 @@ h1 {
 
 /* --- 2. Баштоо/Жеңиш Экрандары (Модальдар) --- */
 #startScreen {
-    position: absolute;
+    position: fixed; /* Boshqa kontent ustida turishi uchun fixed */
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.7);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,7 +93,10 @@ h1 {
 #countdown {
     font-size: 100px;
     font-weight: bold;
-    position: absolute;
+    position: fixed; /* Fixed pozitsiyaga o'tkazish */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 99;
     color: white;
     text-shadow: 0 0 10px #e74c3c, 0 0 20px #e74c3c;
@@ -106,13 +112,13 @@ h1 {
 
 /* Анимациялар */
 @keyframes scaleIn {
-    from { transform: scale(0.5); opacity: 0.5; }
-    to { transform: scale(1); opacity: 1; }
+    from { transform: scale(0.5) translate(-50%, -50%); opacity: 0.5; }
+    to { transform: scale(1) translate(-50%, -50%); opacity: 1; }
 }
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% { transform: scale(1) translate(-50%, -50%); }
+    50% { transform: scale(1.05) translate(-50%, -50%); }
+    100% { transform: scale(1) translate(-50%, -50%); }
 }
 
 
@@ -121,6 +127,7 @@ h1 {
     display: flex;
     align-items: flex-start;
     gap: 20px; 
+    width: 95%; /* Katta ekranlar uchun */
 }
 
 .panel {
@@ -138,7 +145,7 @@ h1 {
 #rightPanel .header { background: #A11C28; } /* Кызыл */
 
 .problem-box {
-    height: 100px; /* Суроо көп саптуу болушу мүмкүн */
+    height: 100px; 
     display: flex; align-items: center; justify-content: center;
     font-size: 22px; font-weight: bold; color: white;
     margin: 10px 0;
@@ -151,7 +158,6 @@ h1 {
 /* ТЕСТ БАСКЫЧТАРЫНЫН СТИЛДЕРИ (keypad'дын ордуна) */
 .quiz-keypad {
     display: grid;
-    /* 2 катар 3 катарча кылабыз (3x2) - 6 вариант үчүн */
     grid-template-columns: repeat(2, 1fr);
     gap: 8px; 
     padding: 10px 15px;
@@ -162,7 +168,7 @@ h1 {
     font-size: 1rem; 
     border: none;
     border-radius: 8px;
-    background: #e0f7fa; /* Ачык көк фон */
+    background: #e0f7fa; 
     box-shadow: 0 3px #b2ebf2;
     cursor: pointer;
     transition: all 0.1s;
@@ -268,7 +274,7 @@ h1 {
     border-radius: 50%;
 }
 
-/* --- 6. Анимациялар жана Media Queries --- */
+/* --- 6. Анимациялар ва Media Queries (MOSLASHUV) --- */
 
 .shake-input { animation: shake-input 0.5s; }
 @keyframes shake-input {
@@ -279,20 +285,155 @@ h1 {
     100% { transform: translateX(0); }
 }
 
-/* Мобилдик телефондор үчүн (768px чейин) */
-@media (max-width: 1050px) {
-    .main-game-container { flex-direction: column; align-items: center; }
-    .panel { width: 90%; max-width: 400px; margin-bottom: 15px; }
-    #arena { width: 90%; height: 300px; margin-top: 15px; }
+
+/* ========================================================= */
+/* === MOBIL ALSBOM (LANDSCAPE) VA TABLET PORTRET (700px - 1050px) === */
+/* ========================================================= */
+@media (min-width: 700px) and (max-width: 1050px), 
+       (max-height: 550px) { /* Kichik balandlikdagi qurilmalar (odatda albom) */
     
-    .problem-box { font-size: 18px; height: 80px; }
+    body {
+        padding: 5px;
+        justify-content: flex-start; /* Kontentni yuqoriroqqa surish */
+    }
     
+    h1 {
+        font-size: 24px;
+        margin: 5px 0 10px 0;
+    }
+    
+    p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    /* Asosiy o'yin konteyneri (Yonma-yon) */
+    .main-game-container {
+        flex-direction: row; 
+        align-items: flex-start;
+        gap: 10px; 
+        width: 100%; 
+        justify-content: center;
+    }
+
+    /* Panel o'lchamlarini moslash (Arena uchun joy qoldirish) */
+    .panel {
+        width: 28%; 
+        max-width: none;
+        margin-bottom: 0;
+    }
+    .header {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .problem-box {
+        height: 60px; 
+        font-size: 14px; 
+        padding: 5px;
+        margin: 5px 0;
+    }
+    
+    /* Tugmalar */
     .quiz-keypad {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 10px;
+        grid-template-columns: 1fr; /* Tugmalarni vertikal joylashtirish (1 ustun) */
+        gap: 4px;
+        padding: 5px;
     }
     .quiz-btn {
-        font-size: 1rem;
-        padding: 15px 5px;
+        font-size: 0.75rem;
+        padding: 6px 3px;
+    }
+
+    /* Arena o'lchamini moslash */
+    #arena {
+        width: 44%; 
+        height: 200px; /* Balandlikni kamaytirish */
+        margin-top: 15px; 
+    }
+    
+    #arenaWinnerDisplay {
+        font-size: 14px;
+    }
+    #winGifContainer {
+        margin-top: -100px; 
+    }
+    .winner-text {
+        font-size: 22px;
+    }
+    .winner-text-small {
+        font-size: 12px;
+    }
+    .btn-go {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    /* Boshlash ekrani (Modal) */
+    #startModal {
+        padding: 20px;
+        width: 90%;
+    }
+    #startModal h2 {
+        font-size: 24px;
+    }
+    .teamSetup {
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-direction: column; 
+    }
+    .teamBox input {
+        font-size: 16px;
+        padding: 8px;
+    }
+    #startBtn {
+        padding: 10px 30px;
+        font-size: 20px;
+    }
+    
+    h3 a {
+        font-size: 14px;
     }
 }
+
+
+/* ========================================================= */
+/* === MOBIL PORTRET (699px va undan kichik) === */
+/* ========================================================= */
+@media (max-width: 699px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+    
+    .main-game-container { 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 15px;
+    }
+    .panel { 
+        width: 95%; 
+        max-width: 400px; 
+        margin-bottom: 0;
+    }
+    #arena { 
+        width: 95%; 
+        height: 250px; 
+        margin-top: 5px; 
+    }
+    
+    /* Boshlash ekrani */
+    .teamSetup {
+        flex-direction: column; 
+    }
+    
+    /* Tugmalar portretda 2 ustun bo'lib qoladi */
+    .quiz-keypad {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 10px 15px;
+    }
+    }
