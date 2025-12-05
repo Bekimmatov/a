@@ -1,4 +1,4 @@
-⁶// --- Sozlamalar ---
+// --- Sozlamalar ---
 let position = 0;
 const STEP = 50;
 const WIN_LIMIT = 300;
@@ -8,7 +8,7 @@ let teamLeft, teamRight;
 let quizAnswers = { left: '', right: '' }; 
 let gameActive = false;
 
-// 🇺🇿 Geografiya bo'yicha savollar va javoblar bazasi (Oʻzbek tilida)
+// 🇺🇿 Geografiya bo'yicha savollar va javoblar bazasi (FAQAT MATNLI)
 const quizDatabase = [
     // --- Matnli Savollar (Rasm ishtirokisiz) ---
     { 
@@ -168,8 +168,6 @@ const quizDatabase = [
     }
 ];
 
-console.log(quizDatabase);
-
 // 🔊 Musiqa elementini aniqlash
 const backgroundMusic = document.getElementById("background-music");
 
@@ -217,7 +215,7 @@ document.getElementById("startBtn").onclick = () => {
         if (arenaWinnerDisplay) arenaWinnerDisplay.style.display = "none";
         
         const blueGif = document.getElementById("blueWinGif");
-        const redGif = document.getElementById("redGif");
+        const redGif = document.getElementById("redWinGif");
         if (blueGif) blueGif.style.display = 'none';
         if (redGif) redGif.style.display = 'none';
         
@@ -450,5 +448,4 @@ function triggerConfetti(container) {
             c.remove();
         }, duration * 1000);
     }
-
-}
+            }
