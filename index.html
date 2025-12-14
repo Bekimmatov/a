@@ -1,27 +1,42 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arqon Tortish: Geografiya</title>
+    <title>Arqon tortish o'yini</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
-<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=yes">
 </head>
 
 <body>
 
-    <audio id="background-music" src="audio.mp3" loop></audio>
-    
-    <h1>ARQON TORTISH : GEOGRAFIYA</h1>
+    <audio id="background-music" src="https://github.com/Bekimmatov/a/raw/refs/heads/main/audio.mp3" loop></audio>
+
+    <h1>ARQON TORTISH O'YINI </h1>
     <p>
         Toʻgʻri javob — jamoa arqonni oʻz tomoniga tortadi. <br>
 
-Xato javob — arqon raqib tomonga siljib, darhol yangi savol chiqadi.
+        Xato javob — arqon raqib tomonga siljib, darhol yangi savol chiqadi.
     </p>
-    
-    <div id="startScreen">
+
+    <div id="questionInputModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Savollarni Kiriting</h2>
+            <p>Har bir savolni # bilan boshlang. To'g'ri javob oldiga + qo'ying.</p>
+            <textarea id="questionsInput" rows="10" placeholder="#Savol matni&#10; agar savolda rasm bolsa uni url shaklda savoldan keyin entr bosib yozing&#10;Javob varianti 1&#10;+ To'g'ri javob&#10;Javob varianti 3...&#10; &#10; masalan &#10; #Xaritada 1 va 2 raqami bilan belgilangan yarimorollar qaysi davlatga tegishli?&#10; https://i.ibb.co/TBSZbYD5/Screenshot-20251201-191802-Telegraph.jpg
+A) Ikalasi ham AQSH ga tegishli
+B) AQSH Nikaragua
+C) AQSH, Meksika
++D) Meksika, AQSH
+  "></textarea>
+            <button id="saveQuestionsBtn">Saqlash va Davom Etish</button>
+        </div>
+    </div>
+
+    <div id="startScreen" style="display:none;">
         <div id="startModal">
             <h2>JAMOALARNI TAYYORLANG</h2>
             <div class="teamSetup">
@@ -37,7 +52,7 @@ Xato javob — arqon raqib tomonga siljib, darhol yangi savol chiqadi.
             <button id="startBtn">OʻYINNI BOSHLASH</button>
         </div>
     </div>
-    
+
     <div id="countdown">3</div>
 
     <div class="main-game-container">
@@ -45,21 +60,22 @@ Xato javob — arqon raqib tomonga siljib, darhol yangi savol chiqadi.
             <div class="header" id="headerLeft">1-Jamoa</div>
             <div class="problem-box" id="leftProblem">Savol ?</div>
             <div class="quiz-keypad" id="leftQuizKeypad">
-                </div>
+            </div>
         </div>
 
         <div id="arena">
-            <div id="winLine"></div> 
-            
+            <div id="winLine"></div>
+
             <div id="imageContainer">
                 <img style="width:100%;" src="personss.gif" id="tugOfWarImage" alt="Arqon tortish">
             </div>
 
             <div id="arenaWinnerDisplay" style="display:none;">
-                <div id="winGifContainer"> 
-                   <h2 id="winnerNameArena" class="winner-text"></h2>
-                   <h3 class="winner-text-small">Gʻalabaga erishdi! Tabriklaymiz</h3>
-                   <button class="btn btn-go" style="margin-top: 20px;" onclick="location.reload()">QAYTA OʻYNASH</button>
+                <div id="winGifContainer">
+                    <h2 id="winnerNameArena" class="winner-text"></h2>
+                    <h3 class="winner-text-small">Gʻalabaga erishdi! Tabriklaymiz</h3>
+                    <button class="btn btn-go" style="margin-top: 20px;" onclick="location.reload()">QAYTA
+                        OʻYNASH</button>
                     <img src="win_blue.gif" id="blueWinGif" class="win-gif" alt="Koʻk jamoa gʻalaba qozondi">
                     <img src="win_red.gif" id="redWinGif" class="win-gif" alt="Qizil jamoa gʻalaba qozondi">
                 </div>
@@ -70,15 +86,20 @@ Xato javob — arqon raqib tomonga siljib, darhol yangi savol chiqadi.
             <div class="header" id="headerRight">2-Jamoa</div>
             <div class="problem-box" id="rightProblem">Savol ?</div>
             <div class="quiz-keypad" id="rightQuizKeypad">
-                </div>
+            </div>
         </div>
     </div>
     <br>
-    
-    <h3><i class="fa fa-instagram" aria-hidden="true"></i> <a href="https://instagram.com/Bekimmatovv">Muallif - Rahmatjon Bekimmatov</a></h3>
-    
+
+    <div class="footer">
+        <p>Muallif: Rahmatjon Bekimmatov</p>
+        <p>|</p>
+        <a href="https://instagram.com/bekimmatov" target="_blank"><i class="fa fa-instagram"></i> @bekimmatov</a>
+        <p>|</p>
+        <a href="https://t.me/Geografiya_Rahmatjon" target="_blank"><i class="fa fa-telegram"></i> Telegram Kanal</a>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
 </html>
-
