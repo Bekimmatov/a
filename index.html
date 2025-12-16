@@ -38,99 +38,251 @@
 <meta name="twitter:title" content="Interaktiv Taʼlim: Arqon Tortish Oʻyini (Bepul)">
 <meta name="twitter:description" content="Guruhlararo savol-javob: qaysi jamoa koʻproq arqon torta oladi? Darslarni qiziqarli qilish uchun ideal vosita.">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LXBTW3ZLMT"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LXBTW3ZLMT');
+</script>
+
 <body>
+    <audio id="backgroundMusic" src="audio.mp3" loop></audio>
 
-    <audio id="background-music" src="https://github.com/Bekimmatov/a/raw/refs/heads/main/audio.mp3" loop></audio>
 
-    <h1>ARQON TORTISH O'YINI </h1>
-    <p>
-        Toʻgʻri javob — jamoa arqonni oʻz tomoniga tortadi. <br>
 
-        Xato javob — arqon raqib tomonga siljib, darhol yangi savol chiqadi.
-    </p>
 
-    <div id="questionInputModal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>Savollarni Kiriting</h2>
-            <p>Har bir savolni # bilan boshlang. To'g'ri javob oldiga + qo'ying.</p>
-            <textarea id="questionsInput" rows="10" placeholder="#Savol matni&#10; agar savolda rasm bolsa uni url shaklda savoldan keyin entr bosib yozing&#10;Javob varianti 1&#10;+ To'g'ri javob&#10;Javob varianti 3...&#10; &#10; masalan &#10; #Xaritada 1 va 2 raqami bilan belgilangan yarimorollar qaysi davlatga tegishli?&#10; https://i.ibb.co/TBSZbYD5/Screenshot-20251201-191802-Telegraph.jpg
-A) Ikalasi ham AQSH ga tegishli
-B) AQSH Nikaragua
-C) AQSH, Meksika
-+D) Meksika, AQSH
-  "></textarea>
-            <button id="saveQuestionsBtn">Saqlash va Davom Etish</button>
+    <div class="language-selector">
+        <button class="lang-btn" data-lang="uz" type="button" aria-label="O'zbek tili">
+            <img src="https://flagcdn.com/w40/uz.png" alt="uz">
+        </button>
+
+        <button class="lang-btn" data-lang="ru" type="button" aria-label="Русский язык">
+            <img src="https://flagcdn.com/w40/ru.png" alt="ru">
+        </button>
+
+        <button class="lang-btn" data-lang="en" type="button" aria-label="English">
+            <img src="https://flagcdn.com/w40/gb.png" alt="en">
+        </button>
+    </div>
+
+    <header class="game-header">
+        <h1 id="gameTitle">ARQON TORTISH:</h1>
+        <p id="gameSubtitle" class="game-subtitle">
+            To'g'ri javob — arqon siz tomonga tortiladi. Noto'g'ri javob — arqon raqib tomonga siljiydi va darhol yangi
+            savol chiqadi.
+        </p>
+    </header>
+
+    <div id="questionSetupScreen" class="modal-overlay">
+        <div class="modal-content start-modal">
+            <h2 id="questionSetupTitle">SAVOLLARNI KIRITISH</h2>
+            <p class="setup-hint" style="margin-bottom: 8px;">Savollarni pastdagi maydonga joylang:</p>
+
+            <textarea id="customQuestionInput" class="question-input-area" placeholder="#savol 1
+Men O'zbekiston poytaxtiman?
++Toshkent
+Samarqand
+Buxoro
+Xiva
+
+#savol 2 https://rasm-url.uz/rasm.jpg
+Men kimman?
++Alisher Navoiy
+Bobur
+Temur
+Ulug'bek"></textarea>
+
+            <div class="setup-nav">
+                <button id="useDefaultQuestionsBtn" class="secondary-btn nav-btn" type="button">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>TAYYOR SAVOLLAR</span>
+                </button>
+                <button id="submitQuestionsBtn" class="primary-btn nav-btn" type="button">
+                    <i class="fa-solid fa-check"></i>
+                    <span>DAVOM ETISH</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <div id="startScreen" style="display:none;">
-        <div id="startModal">
-            <h2>JAMOALARNI TAYYORLANG</h2>
-            <div class="teamSetup">
-                <div class="teamBox">
-                    <h3 style="color:#3f51b5;">1-Jamoa (KOʻK)</h3>
-                    <input type="text" id="nameLeft" placeholder="Nomini kiriting">
+    <div id="startScreen" class="modal-overlay" style="display: none;">
+        <div class="modal-content start-modal">
+            <h2 id="modalTitle">JAMOALARNI TAYYORLANG</h2>
+
+            <div class="team-setup">
+                <div class="team-box team-left">
+                    <div class="team-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 id="team1Label">1-JAMOA (KO'K)</h3>
+                    <input type="text" id="teamLeftName" placeholder="Jamoa nomi" maxlength="20" autocomplete="off">
                 </div>
-                <div class="teamBox">
-                    <h3 style="color:#e53935;">2-Jamoa (QIZIL)</h3>
-                    <input type="text" id="nameRight" placeholder="Nomini kiriting">
+
+                <div class="vs-divider">
+                    <span>VS</span>
+                </div>
+
+                <div class="team-box team-right">
+                    <div class="team-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 id="team2Label">2-JAMOA (QIZIL)</h3>
+                    <input type="text" id="teamRightName" placeholder="Jamoa nomi" maxlength="20" autocomplete="off">
                 </div>
             </div>
-            <button id="startBtn">OʻYINNI BOSHLASH</button>
+
+            <div class="setup-nav" style="margin-top: 18px;">
+                <button id="startGameBtn" class="primary-btn nav-btn" type="button">
+                    <i class="fa-solid fa-play"></i>
+                    <span id="startBtnText">O'YINNI BOSHLASH</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <div id="countdown">3</div>
+    <div id="countdown" class="countdown-overlay"></div>
 
-    <div class="main-game-container">
-        <div class="panel" id="leftPanel">
-            <div class="header" id="headerLeft">1-Jamoa</div>
-            <div class="problem-box" id="leftProblem">Savol ?</div>
-            <div class="quiz-keypad" id="leftQuizKeypad">
-            </div>
-        </div>
+    <main class="game-shell">
+        <div class="game-stage" id="gameStage">
+            <div class="game-board" id="gameBoard">
 
-        <div id="arena">
-            <div id="winLine"></div>
 
-            <div id="imageContainer">
-                <img style="width:100%;" src="personss.gif" id="tugOfWarImage" alt="Arqon tortish">
-            </div>
+                <div class="calculator-panel panel-left">
+                    <div class="panel-header">
+                        <h3 id="leftTeamHeader">1-Jamoa</h3>
+                        <div class="score-badge" id="leftScore">0</div>
+                    </div>
 
-            <div id="arenaWinnerDisplay" style="display:none;">
-                <div id="winGifContainer">
-                    <h2 id="winnerNameArena" class="winner-text"></h2>
-                    <h3 class="winner-text-small">Gʻalabaga erishdi! Tabriklaymiz</h3>
-                    <button class="btn btn-go" style="margin-top: 20px;" onclick="location.reload()">QAYTA
-                        OʻYNASH</button>
-                    <img src="win_blue.gif" id="blueWinGif" class="win-gif" alt="Koʻk jamoa gʻalaba qozondi">
-                    <img src="win_red.gif" id="redWinGif" class="win-gif" alt="Qizil jamoa gʻalaba qozondi">
+                    <div class="problem-display" id="leftProblem">
+                        <span id="leftProblemText">Savol...</span>
+                    </div>
+
+                    <div class="quiz-keypad" id="leftQuizKeypad" aria-label="Answer options"></div>
                 </div>
+
+
+                <div class="arena-container">
+                    <div class="arena-scoreboard">
+                        <div class="score-item">
+                            <span id="leftTeamName">Jamoa 1</span>
+                            <span class="score-value" id="leftCorrectCount">0</span>
+                        </div>
+                        <div class="timer-display">
+                            <i class="fa-solid fa-clock"></i>
+                            <span id="gameTimer">00:00</span>
+                        </div>
+                        <div class="score-item">
+                            <span id="rightTeamName">Jamoa 2</span>
+                            <span class="score-value" id="rightCorrectCount">0</span>
+                        </div>
+                    </div>
+
+                    <div class="arena">
+                        <div class="center-line"></div>
+                        <div class="rope-container" id="ropeContainer">
+                            <video id="ropeVideo" autoplay loop muted playsinline>
+                                <source src="main.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div id="win-video" class="win-video-wrap" style="display:none;" aria-hidden="true">
+                            <video id="blueWinVideo" class="win-video" style="display:none;" autoplay loop muted
+                                playsinline>
+                                <source src="win_blue.mp4" type="video/mp4">
+                            </video>
+                            <video id="redWinVideo" class="win-video" style="display:none;" autoplay loop muted
+                                playsinline>
+                                <source src="win_red.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div id="winnerDisplay" class="winner-overlay">
+                            <div class="winner-content">
+                                <div class="trophy-animation">
+                                    <i class="fa-solid fa-trophy"></i>
+                                </div>
+                                <h2 id="winnerName" class="winner-title"></h2>
+                                <p id="winnerMessage" class="winner-message">G'olib bo'ldi!</p>
+
+                                <div class="winner-stats">
+                                    <div class="stat-item">
+                                        <i class="fa-solid fa-check-circle"></i>
+                                        <span id="winnerCorrectAnswers">0</span>
+                                        <small id="correctAnswersLabel">to'g'ri javob</small>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span id="winnerTime">00:00</span>
+                                        <small id="timeLabel">vaqt</small>
+                                    </div>
+                                </div>
+
+                                <button class="primary-btn" id="playAgainBtn" type="button">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                    <span id="playAgainText">QAYTA O'YNASH</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="calculator-panel panel-right">
+                    <div class="panel-header">
+                        <h3 id="rightTeamHeader">2-Jamoa</h3>
+                        <div class="score-badge" id="rightScore">0</div>
+                    </div>
+
+                    <div class="problem-display" id="rightProblem">
+                        <span id="rightProblemText">Savol...</span>
+                    </div>
+
+                    <div class="quiz-keypad" id="rightQuizKeypad" aria-label="Answer options"></div>
+                </div>
+
             </div>
         </div>
+    </main>
 
-        <div class="panel" id="rightPanel">
-            <div class="header" id="headerRight">2-Jamoa</div>
-            <div class="problem-box" id="rightProblem">Savol ?</div>
-            <div class="quiz-keypad" id="rightQuizKeypad">
+    <footer class="game-footer">
+        <div class="footer-content">
+            <p class="author-text">Muallif: <span class="author-name">Bekimmatov Rahmatjon</span></p>
+            <div class="social-links">
+                <a class="social-link" href="https://t.me/+dttt9nKyaZ45MDgy" target="_blank" rel="noopener noreferrer"
+                    aria-label="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a class="social-link" href="https://Instagram.com/bekimmatovv" target="_blank"
+                    rel="noopener noreferrer" aria-label="Bekimmatovv">
+                    <i class="fab fa-instagram"></i>
+                </a>
             </div>
         </div>
-    </div>
-    <br>
+    </footer>
 
-    <div class="footer">
-        <p>Muallif: Rahmatjon Bekimmatov</p>
-        <p>|</p>
-        <a href="https://instagram.com/bekimmatovv" target="_blank"><i class="fa fa-instagram"></i> @bekimmatovv</a>
-        <p>|</p>
-        <a href="https://t.me/Geografiya_Rahmatjon" target="_blank"><i class="fa fa-telegram"></i> Telegram Kanal</a>
+
+    <div class="view-controls" id="viewControls" aria-label="Zoom and fullscreen controls">
+        <button class="view-btn" id="zoomOutBtn" type="button" aria-label="Zoom out">
+            <i class="fa-solid fa-minus"></i>
+        </button>
+        <span class="view-label" id="zoomLabel">100%</span>
+        <button class="view-btn" id="zoomInBtn" type="button" aria-label="Zoom in">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <button class="view-btn" id="fullscreenBtn" type="button" aria-label="Toggle fullscreen">
+            <i class="fa-solid fa-expand"></i>
+        </button>
     </div>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 
-</html>
+                        </html>
+
 
 
